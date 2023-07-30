@@ -10,21 +10,7 @@ use rand::Rng;
 use ray::Ray;
 use sphere::Sphere;
 use std::io::{stderr, Write};
-use vec::{Color, Point3, Vec3};
-
-fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> f64 {
-    let oc = r.origin() - center;
-    let a = r.direction().length().powi(2);
-    let half_b = oc.dot(r.direction());
-    let c = oc.length().powi(2) - radius * radius;
-    let discrimant = half_b * half_b - a * c;
-
-    if discrimant < 0.0 {
-        -1.0
-    } else {
-        (-half_b - discrimant.sqrt()) / a
-    }
-}
+use vec::{Color, Point3};
 
 fn ray_color(r: &Ray, world: &World) -> Color {
     if let Some(rec) = world.hit(r, 0.0, f64::INFINITY) {
